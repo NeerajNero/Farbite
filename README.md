@@ -1,4 +1,4 @@
-# Weekend Drop
+# Farbite
 
 Scheduled batch pre-order service: one famous restaurant per weekend, pre-orders before a
 cutoff, one bulk pickup, delivery to PG gates. Full spec: **`PLAN.md`** (single source of truth).
@@ -19,7 +19,7 @@ Prereqs: Node ≥ 20, pnpm ≥ 10.
 
 ```bash
 pnpm install
-pnpm --filter @weekend-drop/shared build   # shared package emits dist/ used by both apps
+pnpm --filter @farbite/shared build   # shared package emits dist/ used by both apps
 
 cp apps/api/.env.example apps/api/.env     # fill INTERNAL_API_KEY (any long random string)
 cp apps/web/.env.example apps/web/.env.local

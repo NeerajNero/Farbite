@@ -10,7 +10,7 @@
 3. **`GET /v1/ping`** — not in PLAN §10. Added as a Phase 0 smoke endpoint: the only guarded
    route until Phase 2, used by the status page and e2e tests to prove `InternalKeyGuard` +
    `ActorGuard`. Remove or keep once real routes exist.
-4. **Shared package name `@weekend-drop/shared`**, built to `dist/` with tsc (commonjs). Both
+4. **Shared package name `@farbite/shared`**, built to `dist/` with tsc (commonjs). Both
    apps consume it as a workspace dep; `pnpm build` builds it first.
 5. **`DATABASE_URL` optional in Phase 0** — env validation allows it missing; `/health` reports
    `db: false`. It becomes required in Phase 1.
@@ -23,3 +23,8 @@
    imported from a prior project on 2026-09-22 and reconciled with PLAN.md (§0.14, §7.1 note).
    Where imported skills assume a generated SDK or SQL-first migrations, PLAN.md wins.
 10. **apps/api naming** — kept PLAN's `apps/api` (agent tooling docs updated from `apps/backend`).
+11. **Rename to Farbite (2026-09-22, founder request)** — "Weekend Drop"/"weekend-drop" →
+    "Farbite"/"farbite" everywhere: root package `farbite`, shared package `@farbite/shared`,
+    `NEXT_PUBLIC_APP_NAME`, docs. Order-code prefix changed `WD-` → `FB-` in PLAN §4/§6 (branding
+    follows the app name; no code implements it yet). Prose "weekend drops" (the product concept)
+    kept as-is. The concept of one drop per weekend is unchanged.

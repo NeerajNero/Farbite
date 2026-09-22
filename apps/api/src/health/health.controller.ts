@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import type { HealthResponse } from '@weekend-drop/shared';
+import type { HealthResponse } from '@farbite/shared';
 import { DbHealthService } from './db-health.service.js';
 
 // Public (no internal key): PLAN.md §10. Lives outside the /v1 prefix.

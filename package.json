@@ -1,9 +1,9 @@
 {
-  "name": "weekend-drop",
+  "name": "farbite",
   "private": true,
   "scripts": {
     "dev": "pnpm --parallel --filter api --filter web dev",
-    "build": "pnpm --filter @weekend-drop/shared build && pnpm --filter api build && pnpm --filter web build",
+    "build": "pnpm --filter @farbite/shared build && pnpm --filter api build && pnpm --filter web build",
     "test": "pnpm -r test",
     "lint": "pnpm -r lint",
     "db:generate": "pnpm --filter api db:generate",

@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
-import type { ErrorCode } from '@weekend-drop/shared';
+import type { ErrorCode } from '@farbite/shared';
 
 // Domain error carrying one of the §10 error codes. The exception filter turns
 // any of these into { error: { code, message, details? } }.

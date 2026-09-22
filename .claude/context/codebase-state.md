@@ -1,4 +1,4 @@
-# Codebase State — Weekend Drop
+# Codebase State — Farbite
 
 > **This is the single source of truth for the current state of the codebase.**
 > Agents read THIS file instead of scanning the repository. Every agent that adds, fixes,
@@ -57,7 +57,7 @@ Target surface: PLAN.md §10.
 
 _None yet. Target: every minute — close drops past cutoff, expire pending orders (PLAN §7.4)._
 
-## Shared Package (packages/shared — `@weekend-drop/shared`)
+## Shared Package (packages/shared — `@farbite/shared`)
 
 CommonJS, tsc → `dist/`; build it before the apps (`pnpm build` handles order).
 
@@ -105,7 +105,9 @@ _Not started. Skills staged: `.claude/skills/react-native-expo/`, `.claude/skill
 
 ## Change Log (newest first)
 
-- 2026-09-22 | Phase 0 | Scaffolded pnpm monorepo: `packages/shared` (@weekend-drop/shared: enums, formatPaise/paiseToUpiAmount, toIST, health schema), `apps/api` (NestJS 12 ESM: env validation, InternalKeyGuard/ActorGuard/AdminGuard-stub, ZodValidationPipe, §10 error filter, /health, /v1/ping, Schedule+Throttler wired), `apps/web` (Next 16: serverEnv, apiFetch BFF client, layout, status page). Root scripts, README, DECISIONS.md, git init. Acceptance verified: both apps run, / shows health, wrong key → 401 (5 e2e tests green).
+- 2026-09-22 | rename | App renamed Weekend Drop → **Farbite**: root pkg `farbite`, shared pkg `@farbite/shared` (all imports updated), `NEXT_PUBLIC_APP_NAME`, README/CLAUDE/PLAN/DECISIONS; order-code prefix `WD-`→`FB-` in PLAN §4/§6; lockfile refreshed. Build + 5 e2e tests green after rename (DECISIONS #11).
+
+- 2026-09-22 | Phase 0 | Scaffolded pnpm monorepo: `packages/shared` (@farbite/shared: enums, formatPaise/paiseToUpiAmount, toIST, health schema), `apps/api` (NestJS 12 ESM: env validation, InternalKeyGuard/ActorGuard/AdminGuard-stub, ZodValidationPipe, §10 error filter, /health, /v1/ping, Schedule+Throttler wired), `apps/web` (Next 16: serverEnv, apiFetch BFF client, layout, status page). Root scripts, README, DECISIONS.md, git init. Acceptance verified: both apps run, / shows health, wrong key → 401 (5 e2e tests green).
 
 - 2026-09-22 | setup | Phase 0 started. PLAN.md reconciled with agent tooling (Context Protocol added as §0.14; skill-convention overrides noted in §7.1). CLAUDE.md + this file aligned to plan: apps/api (not apps/backend), packages/shared (no libs/sdk), drizzle-kit migrations, BFF/no SDK.
 - 2026-09-22 | setup | Added Next.js web skills (11) + agents (7), mobile skills + firebase-integrator agent, and hooks (vendored-file guard, post-edit lint/type-check, prettier) in `.claude/settings.json`.

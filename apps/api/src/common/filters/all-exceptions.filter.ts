@@ -7,7 +7,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import type { Response } from 'express';
-import type { ErrorCode } from '@weekend-drop/shared';
+import type { ErrorCode } from '@farbite/shared';
 import { AppException } from '../errors/app.exception.js';
 
 // Every error leaves the API as { error: { code, message, details? } } (PLAN.md §10).

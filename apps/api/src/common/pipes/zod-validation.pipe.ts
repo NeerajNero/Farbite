@@ -3,7 +3,7 @@ import { ZodType } from 'zod';
 import { AppException } from '../errors/app.exception.js';
 
 // Usage on a route: @Body(new ZodValidationPipe(createOrderSchema)) body: CreateOrderDto
-// Schemas live in @weekend-drop/shared so web and api validate the same shapes.
+// Schemas live in @farbite/shared so web and api validate the same shapes.
 @Injectable()
 export class ZodValidationPipe implements PipeTransform {
   constructor(private readonly schema: ZodType) {}
