@@ -28,3 +28,21 @@
     `NEXT_PUBLIC_APP_NAME`, docs. Order-code prefix changed `WD-` → `FB-` in PLAN §4/§6 (branding
     follows the app name; no code implements it yet). Prose "weekend drops" (the product concept)
     kept as-is. The concept of one drop per weekend is unchanged.
+
+## Phase 1 (2026-09-22)
+
+12. **Placeholder seed data (founder request)** — random restaurant "Tandoor Junction (Test)",
+    5 fake PGs, 6 fake menu items. Real data seeded before the pilot; seed is check-then-insert
+    on natural keys (name/title/email) so re-running never duplicates.
+13. **Google OAuth env names** — founder put `GOOGLE_OAUTH_CLIENT_ID/SECRET` in `apps/api/.env`;
+    Auth.js (Phase 2) reads `AUTH_GOOGLE_ID/SECRET` from `apps/web/.env.local`, so the values were
+    copied there (plus a generated `AUTH_SECRET` and `AUTH_URL=http://localhost:3000`). The api
+    copies are harmless (env schema ignores unknown keys) and left in place.
+14. **`updated_at` omitted on `events`** — events are immutable append-only rows; §6's "all tables"
+    boilerplate was skipped there deliberately.
+15. **Phone normalisation is literal §14.11** — exactly 10 digits after stripping +91/91/0 and
+    spaces; no 6-9 first-digit check (the plan doesn't ask for one).
+16. **Order revive edge** — `expired → payment_submitted` added to the order state machine; it's
+    in §5.2's bullets ("Admin can revive") though not drawn in the mermaid diagram.
+17. **`DATABASE_URL` required from Phase 1** except `NODE_ENV=test` (e2e tests run DB-less and
+    assert `db:false`).
