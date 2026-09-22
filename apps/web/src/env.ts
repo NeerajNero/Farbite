@@ -31,4 +31,4 @@ export const serverEnv = validate(serverEnvSchema, {
 });
 
 // NEXT_PUBLIC_* values are inlined at build time; read them directly where needed.
-export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? 'Weekend Drop';
+export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? 'Farbite';

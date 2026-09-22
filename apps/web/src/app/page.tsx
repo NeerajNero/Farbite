@@ -1,4 +1,4 @@
-import type { HealthResponse } from "@weekend-drop/shared";
+import type { HealthResponse } from "@farbite/shared";
 import { apiFetch, ApiError, isApiWakingUp } from "@/app/_libs/api/client";
 
 // Phase 0: proves the BFF path (browser → Next.js server → NestJS) end-to-end.

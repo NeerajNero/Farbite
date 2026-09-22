@@ -1,6 +1,6 @@
-# Weekend Drop — v1 Plan
+# Farbite — v1 Plan
 
-> Working codename: **Weekend Drop** (`weekend-drop`). Rename freely; nothing depends on the name.
+> Working codename: **Farbite** (`farbite`). Rename freely; nothing depends on the name.
 > This file is the single source of truth for v1. Feed it to the coding agent as-is. Sections are numbered so you can say "do Phase 3" or "re-read §14".
 
 ---
@@ -70,7 +70,7 @@ No live tracking. No rider app. No maps. No ratings/reviews. No coupons or refer
 - **Cutoff** — the moment ordering closes. Stored as `cutoff_at` (timestamptz).
 - **Delivery point** — a PG (or similar) where we hand over food at the gate.
 - **Order** — one customer's items for one drop, delivered to one delivery point.
-- **Order code** — short human code on every order, e.g. `WD-7K3M`. Used as the UPI payment note and in all WhatsApp messages.
+- **Order code** — short human code on every order, e.g. `FB-7K3M`. Used as the UPI payment note and in all WhatsApp messages.
 - **Access token** — long random secret in the order URL (`/o/<token>`). How guests get back to their order.
 - **UTR** — UPI transaction reference (12 digits) the customer submits as proof of payment.
 - **Confirmed order** — an order whose payment has been verified (`status = paid`).
@@ -197,7 +197,7 @@ drop_delivery_points                          -- which PGs this drop serves
   primary key (drop_id, delivery_point_id)
 
 orders
-  code             text unique not null      -- WD-7K3M
+  code             text unique not null      -- FB-7K3M
   access_token     text unique not null      -- 32 random bytes, hex
   idempotency_key  text unique               -- from client, prevents double-place
   drop_id          uuid → drops not null
@@ -249,7 +249,7 @@ Enums:
 - `payment_provider`: `manual_upi, razorpay`
 - `payment_status`: `pending, submitted, verified, rejected, refund_pending, refunded, failed`
 
-Order code generation: `WD-` + 4 chars from alphabet `23456789ABCDEFGHJKMNPQRSTUVWXYZ` (no 0/O/1/I/L). Retry on unique-violation.
+Order code generation: `FB-` + 4 chars from alphabet `23456789ABCDEFGHJKMNPQRSTUVWXYZ` (no 0/O/1/I/L). Retry on unique-violation.
 
 ---
 
@@ -258,7 +258,7 @@ Order code generation: `WD-` + 4 chars from alphabet `23456789ABCDEFGHJKMNPQRSTU
 ### 7.1 Repo layout
 
 ```
-weekend-drop/
+farbite/
   apps/
     web/            Next.js 15+ (App Router, TS, Tailwind). Customer site + admin panel. No DB access.
     api/            NestJS 11+ (TS). Owns DB, business rules, jobs, payment providers.
@@ -274,7 +274,7 @@ pnpm workspaces. No Turborepo/Nx unless the agent finds a concrete need (ask fir
 
 Also in the repo (agent tooling, already set up 2026-09-22): `.claude/skills/` (backend = NestJS patterns, web = Next.js patterns, mobile staged for later), `.claude/agents/` (backend ×12, web ×7, mobile ×1), `.claude/context/codebase-state.md` (live codebase snapshot — see §0.14), `.claude/hooks/` (guard against editing vendored/generated files; lint + type-check on web TS/TSX edits).
 
-> **Note on imported skill conventions:** the skills were imported from a prior project and assume a generated SDK (`@food/sdk`) and SQL-first hand-written migrations. For Weekend Drop, **this plan wins**: browser data flows through the BFF with zod DTOs from `packages/shared` (no generated SDK in v1), and migrations are generated with `drizzle-kit` (§2). Treat the affected skills (`backend/migration.md`, `backend/swagger.md`, `web/api-hooks.md`, `backend-client-sdk-generator`) as pattern reference only.
+> **Note on imported skill conventions:** the skills were imported from a prior project and assume a generated SDK (`@food/sdk`) and SQL-first hand-written migrations. For Farbite, **this plan wins**: browser data flows through the BFF with zod DTOs from `packages/shared` (no generated SDK in v1), and migrations are generated with `drizzle-kit` (§2). Treat the affected skills (`backend/migration.md`, `backend/swagger.md`, `web/api-hooks.md`, `backend-client-sdk-generator`) as pattern reference only.
 
 ### 7.2 Request flow (BFF)
 
@@ -532,7 +532,7 @@ AUTH_SECRET=
 AUTH_GOOGLE_ID=
 AUTH_GOOGLE_SECRET=
 AUTH_URL=                  # public web URL
-NEXT_PUBLIC_APP_NAME=Weekend Drop
+NEXT_PUBLIC_APP_NAME=Farbite
 NEXT_PUBLIC_SUPPORT_WHATSAPP=91XXXXXXXXXX
 NEXT_PUBLIC_WHATSAPP_GROUP_URL=
 NEXT_PUBLIC_RAZORPAY_KEY_ID=   # Phase 7

@@ -1,4 +1,4 @@
-# CLAUDE.md — Weekend Drop
+# CLAUDE.md — Farbite
 
 > **`PLAN.md` is the single source of truth for v1** — product spec, data model, business rules (§14), phases.
 > Backend patterns live in `.claude/skills/backend/SKILL.md`; web patterns in `.claude/skills/web/SKILL.md`.
