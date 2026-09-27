@@ -27,13 +27,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col bg-white text-neutral-900">
         <header className="border-b border-neutral-200">
-          <div className="mx-auto flex h-14 w-full max-w-md items-center px-4 sm:max-w-2xl">
-            <span className="text-base font-semibold tracking-tight">{appName}</span>
+          <div className="mx-auto flex h-14 w-full max-w-5xl items-center px-4">
+            <span className="text-base font-semibold tracking-tight">
+              {appName}
+            </span>
           </div>
         </header>
-        <main className="mx-auto w-full max-w-md flex-1 px-4 py-6 sm:max-w-2xl">
-          {children}
-        </main>
+        <main className="w-full flex-1 px-4 py-6">{children}</main>
       </body>
     </html>
   );

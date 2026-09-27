@@ -24,11 +24,22 @@ async function checkApi(): Promise<ApiStatus> {
     return { state: "ok", health, guard };
   } catch (err) {
     if (isApiWakingUp(err)) return { state: "waking" };
-    return { state: "error", message: err instanceof Error ? err.message : "Unknown error" };
+    return {
+      state: "error",
+      message: err instanceof Error ? err.message : "Unknown error",
+    };
   }
 }
 
-function StatusRow({ label, ok, detail }: { label: string; ok: boolean; detail: string }) {
+function StatusRow({
+  label,
+  ok,
+  detail,
+}: {
+  label: string;
+  ok: boolean;
+  detail: string;
+}) {
   return (
     <div className="flex items-center justify-between rounded-lg border border-neutral-200 px-4 py-3">
       <span className="text-sm font-medium">{label}</span>
@@ -43,7 +54,7 @@ export default async function Home() {
   const status = await checkApi();
 
   return (
-    <div className="space-y-4">
+    <div className="mx-auto max-w-md space-y-4 sm:max-w-2xl">
       <h1 className="text-lg font-semibold">System status (Phase 0)</h1>
 
       {status.state === "waking" && (
@@ -60,7 +71,11 @@ export default async function Home() {
 
       {status.state === "ok" && (
         <div className="space-y-2">
-          <StatusRow label="API" ok={status.health.ok} detail={status.health.ok ? "up" : "down"} />
+          <StatusRow
+            label="API"
+            ok={status.health.ok}
+            detail={status.health.ok ? "up" : "down"}
+          />
           <StatusRow
             label="Database"
             ok={status.health.db}

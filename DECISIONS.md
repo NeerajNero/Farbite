@@ -46,3 +46,36 @@
     in §5.2's bullets ("Admin can revive") though not drawn in the mermaid diagram.
 17. **`DATABASE_URL` required from Phase 1** except `NODE_ENV=test` (e2e tests run DB-less and
     assert `db:false`).
+
+## Phase 2 (2026-09-27)
+
+18. **Wire format is snake_case JSON** (as PLAN §10 shows: `is_admin`, `drop_id`…) while Drizzle
+    rows are camelCase; each API service maps rows → DTOs by hand. No generated SDK (PLAN §7.1).
+19. **Layers** — controller → service → repository (Drizzle, accepts `DbOrTx`) → `DbService`.
+    The imported skill's extra "DB module service" wrapper is collapsed into the repository; the
+    repo is small and PLAN §0.6 says keep it minimal.
+20. **Drop counts** — `counts.paid` includes `delivered` orders (they were paid) so post-delivery
+    numbers don't drop to zero; `capacity_used` is strictly §14.2 (pending-not-expired + submitted
+    + paid). `revenue_paise` sums paid + delivered; `estimated_margin_paise` = revenue − Σ(cost ×
+    qty) and is `null` when any paid item lacks a cost price.
+21. **Open-drop item edits** — PLAN §9.1 names availability and `max_total_qty`; we also allow
+    `description`, `cost_price_paise`, `sort_order` (they don't affect placed orders) and lock
+    `name`, `price_paise`, `is_veg`, `max_qty_per_order`. Locked fields may be *sent* unchanged
+    (the form posts full rows); only a differing value is rejected.
+22. **Duplicate** — `cutoff_at`/`delivery_*` are NOT NULL, so "clears dates" became "shift the
+    source dates forward by whole weeks until delivery is in the future"; title gets " (copy)";
+    all copied items are marked available.
+23. **Cancel cascade (§14.7) implemented now**, not in Phase 4 — cancelling with live orders
+    would otherwise leave paid orders stranded. It's a no-op until Phase 3 creates orders.
+24. **Transition preconditions for `open`** (not spelled out in PLAN): ≥1 item, ≥1 delivery
+    point, cutoff in the future, and no other `open` drop (§14.13). Cancel requires a reason.
+    Violations return `409 INVALID_TRANSITION` with a human message.
+25. **Auth.js in Next 16** — `next-auth@5.0.0-beta.32` (peer range includes Next 16). Upsert runs
+    in the `jwt` callback on first sign-in only; the proxy (`src/proxy.ts`, Node runtime) never
+    calls the API. Non-admins get a real `403` HTML response from the proxy (Next's `forbidden()`
+    is still experimental). Sign-in `callbackUrl` must be a same-site path.
+26. **No web tests** (PLAN §0.10 — UI tests not required); web quality gate is
+    `tsc` + `eslint` + `next build`. Admin UI is plain Tailwind + server actions — no shadcn, no
+    React Query (PLAN §9 "plain tables and forms", §0.6 minimal deps).
+27. **Root layout is full-width now**; the `/` status page wraps itself in the old narrow
+    container. Customer pages in Phase 3 should do the same (mobile-first `max-w-md`).
